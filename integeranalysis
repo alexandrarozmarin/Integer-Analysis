@@ -1,0 +1,176 @@
+'''
+function:   is_divisible_by
+input:      two integers (num, test)
+processing: determines if the first integer 'num' is evenly divisible by
+            the second integer 'test'
+output:     boolean (True or False)
+'''
+#finds the remainder of the two numbers divided, ruling out division by 0, then evaluates of true or false
+def is_divisible_by(num, test):
+    if test == 0:
+        return False
+    elif num % test == 0:
+        return True
+    else:
+        return False
+'''
+function:   get_sum_of_divisors
+input:      one integer
+processing: computes the sum of all positive divisors of the supplied integer,
+            not including the integer itself.  for example:
+
+            get_sum_of_divisors(10) -> 8
+            get_sum_of_divisors(21) -> 11
+            get_sum_of_divisors(-21) -> 11
+
+            the function should work with both positive and negative integers.
+            you can always assume the function will be called with an integer.
+            your function can return a sum of 0 when analyzing the integer 0.
+output:     returns the sum of the divisors (integer)
+'''
+#uses for loop to accumulate all the divisors and add them up
+def get_sum_of_divisors(integer):
+    if integer == 0:
+        return 0
+    else:
+        if integer < 0:
+            integer = integer*-1
+        sum = 0
+        for i in range(1, integer):
+            if integer % i == 0:
+                sum += i
+        return sum     
+'''
+function:   get_greatest_divisor
+input:      one integer
+processing: computes the greatest (largest) positive divisor of the supplied integer,
+            not including the integer itself. for example:
+
+            get_greatest_divisor(10) -> 5
+            get_greatest_divisor(21) -> 7
+            get_greatest_divisor(-21) -> 7
+
+            the function should work with both positive and negative integers.
+            you can always assume the function will be called with an integer.
+output:     returns the greatest (largest) divisor (integer) or False if the
+            integer being analyzed is 0, 1 or -1 (Boolean)
+'''
+#replaces each greater divisor with a greater one until no more exist
+def get_greatest_divisor(integer):
+    if integer == 0 or integer == 1 or integer == -1:
+        return False
+    else:
+        if integer < 0:
+            integer = integer*-1
+        greatest = 0
+        for i in range (1, integer):
+            if integer % i == 0:
+                greatest = i
+        return greatest
+'''
+function:   is_prime
+input:      one integer
+processing: determines if the supplied integer is prime. a prime integer
+            only has two factors - the integer 1 and itself.
+            for example, 17 is prime because it only has two factors (1 and 17).
+            the integers 0 and 1 should not be considered to be prime.
+            negative integers should not be considered prime
+output:     boolean
+'''
+#checks for all divisors and if there are none, returns prime
+def is_prime(integer):
+    if integer == 0 or integer == 1 or integer < 0:
+        return False
+    else:
+        prime = True
+        for i in range(2, integer):
+            if integer % i == 0:
+                prime = False
+        return prime
+'''
+function:   is_perfect
+input:      one integer
+processing: determines if the supplied integer is perfect. a perfect integer
+            is a positive integer that is equal to the sum of its factors (i.e. the
+            integer 6 is perfect because 6 = 1 + 2 + 3)
+            1 is not considered a perfect integer
+output:     boolean
+'''
+#uses them sum used earlier, then evaluates that sum against the integer
+def is_perfect(integer):
+    if integer == 1 or integer < 0:
+        return False
+    else:
+        sum = 0
+        for i in range(1, integer):
+            if integer % i == 0:
+                sum += i
+        if sum == integer:
+            return True
+        else:
+            return False
+'''
+function:   is_abundant
+input:      one integer
+processing: determines if the supplied integer is abundant. an abundant integer
+            is an integer that is less than the sum of its proper factors (i.e. the
+            integer 12 is abundant because 12 < 1 + 2 + 3 + 4 + 6)
+            for the purpose of this function you should treat all integers <= 0 as
+            not abundant.
+output:     boolean
+'''
+#same as before, just evaluates the sum against the integer in a different way
+def is_abundant(integer):
+        if integer <= 0:
+            return False
+        else:
+            sum = 0
+            for i in range(1, integer):
+                if integer % i == 0:
+                    sum += i
+            if sum > integer:
+                return True
+            else:
+                return False
+'''
+function:   convert_to_binary
+input:      one integer
+processing: converts the supplied integer to its binary representation. decimal integers
+            can be converted to binary by implementing the following algorithm:
+
+            1. compute the remainder result of the expression: integer / 2 
+            2. capture the remainder in a string. if the string already has characters in it, put the remainder on the left side.
+            3. divide the number by 2 and throw away the remainder. this is our "reduced" integer
+            4. if the reduced integer is 0, stop. otherwise goto step 1 and repeat with the reduced integer
+
+            for example, converting the integer 9 would work as follows:
+
+            Expression      Remainder       Binary String       Reduced Integer
+            9 / 2           1               1                   4
+            4 / 2           0               01                  2
+            2 / 2           0               001                 1
+            1 / 2           1               1001                0 - stopping
+
+            the integer 9 in binary can be represented as "1001"
+
+            your function should work for all integers, treating negative integers as though they are positive
+
+            you are not allowed to use any built-in or module functions that convert integers to binary values.
+            you must write this algorithm yourself, using the tools we have covered in class (accumulator variables, 
+            loops, expressions, if statements, etc.)
+
+output:     the binary value, expressed as a string
+'''
+#runs above algorithm
+def convert_to_binary(integer):
+    if integer < 0:
+        integer = -1*integer
+    binary_string = ""
+    while True:
+        reduced_integer = integer//2
+        remainder = integer % 2
+        binary_string = str(remainder)+binary_string
+        integer = reduced_integer
+        if integer == 0:
+            break
+    return binary_string
