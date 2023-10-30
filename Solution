@@ -1,0 +1,35 @@
+#importing module with functions
+import integeranalysis
+
+#asking user for input, validating that the second number is greater than the first
+int1 = int(input("Enter first integer: "))
+int2 = int(input("Enter second integer: "))
+if int2<int1:
+    while int(int2)<int(int1):
+        print("Invalid, try again")
+        int2 = input("Enter second integer: ")
+
+#headers
+print(f"Integer DivisorSum GreatestDivisor Prime Perfect Abundant Binary")
+#using for loop to examine every integer value in range
+for i in range(int1, int(int2)+1):
+    integer = i
+    divisorsum = integeranalysis.get_sum_of_divisors(i)
+    if integeranalysis.get_greatest_divisor(i) == False:
+        greatestdivisor = "False"
+    else:
+        greatestdivisor = integeranalysis.get_greatest_divisor(i)
+    if integeranalysis.is_prime(i) == True:
+        prime = "X"
+    else:
+        prime = ""
+    if integeranalysis.is_perfect(i) == True:
+        perfect = "X"
+    else:
+        perfect = ""
+    if integeranalysis.is_abundant(i) == True:
+        abundant = "X"
+    else:
+        abundant = ""
+    binary = integeranalysis.convert_to_binary(i)
+    print(f"{integer:<7} {divisorsum:<10} {greatestdivisor:<15} {prime:<5} {perfect:<7} {abundant:<8} {binary}")
